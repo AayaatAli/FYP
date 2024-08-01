@@ -6,6 +6,10 @@ from torchvision import transforms
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import streamlit as st
+import os
+import random
+import string
+
 
 def load_model(model_path, num_classes):
     model = get_model(num_classes)
@@ -30,6 +34,18 @@ def predict(model, image_tensor):
         outputs = model(image_tensor)
     return outputs
 
+
+
+
+
+def generate_random_filename(folder="Detection_Results", length=10):
+    if not os.path.exists(folder):
+        os.makedirs(folder)
+    
+    characters = string.ascii_letters + string.digits
+    random_filename = ''.join(random.choice(characters) for i in range(length))
+    return os.path.join(folder, f"resultant_image_{random_filename}.jpg")
+
 def display_image_with_boxes(image, boxes, labels, scores, score_threshold=0.5):
     plt.figure(figsize=(12, 8))
     plt.imshow(image)
@@ -48,7 +64,10 @@ def display_image_with_boxes(image, boxes, labels, scores, score_threshold=0.5):
 
     print("for loop finished")
     plt.axis('off')
-    plt.savefig('filename.svg')
+    # plt.savefig('filename.svg')
+
+    random_filename = generate_random_filename()
+    plt.savefig(random_filename)
     plt.show()
 # def display_image_with_boxes(image, boxes, labels, scores, score_threshold=0.5):
 #     img_width, img_height = image.size
@@ -66,6 +85,37 @@ def display_image_with_boxes(image, boxes, labels, scores, score_threshold=0.5):
 #             plt.text(xmin, ymin, 'Label: defected', fontdict={'fontsize': 3})
 #     plt.axis('off')
 #     st.pyplot(fig)
+
+
+
+
+#fyp_eval
+
+# def show_predict_page():
+#     st.title("Faster R-CNN Image Prediction")
+
+#     model_path = 'D:/Dashboard/rcnn_model2.pth'
+#     num_classes = 3
+#     model = load_model(model_path, num_classes)
+
+#     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+#     if uploaded_file is not None:
+#         print("uploaded")
+#         image = Image.open(uploaded_file).convert("RGB")
+#         image_tensor = transform_image(image)
+
+#         print("starting preds")
+#         outputs = predict(model, image_tensor)
+
+#         print("preds finished")
+#         boxes = outputs[0]['boxes'].cpu().numpy()
+#         labels = outputs[0]['labels'].cpu().numpy()
+#         scores = outputs[0]['scores'].cpu().numpy()
+
+#         display_image_with_boxes(image, boxes, labels, scores)
+#         st.image('filename.svg', caption='Resultant Image', use_column_width=True)
+
+#         print("image with boxes")
 
 def show_predict_page():
     st.title("Faster R-CNN Image Prediction")
@@ -89,5 +139,7 @@ def show_predict_page():
         scores = outputs[0]['scores'].cpu().numpy()
 
         display_image_with_boxes(image, boxes, labels, scores)
-        st.image('filename.svg', caption='My Image', use_column_width=True)
+        #st.image('filename.svg', caption='Resultant Image', use_column_width=True)
+        st.image('filename.jpg', caption='Resultant Image', use_column_width=True)
+
         print("image with boxes")
