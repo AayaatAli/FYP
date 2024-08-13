@@ -132,7 +132,7 @@ def process_image(image_path, gamma=0.77, crop_box=(500, 150, 1050, 1050), pixel
 def show_diameter_page():
     st.title("Diameter Measurement")
 
-    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"], key="Diameter_uploader")
     if uploaded_file is not None:
         actual_diameter = st.number_input("Enter the actual diameter in micrometers:", min_value=0.0, format="%.2f")
         

@@ -75,62 +75,16 @@ def display_image_with_boxes(image, boxes, labels, scores, score_threshold=0.5):
     return random_filename
 
 
-# def display_image_with_boxes(image, boxes, labels, scores, score_threshold=0.5):
-#     img_width, img_height = image.size
 
-#     fig, ax = plt.subplots(img_height,img_width)
-#     ax.imshow(image)
-
-#     for box, label, score in zip(boxes, labels, scores):
-#         if score >= score_threshold:
-#             xmin, ymin, xmax, ymax = box
-#             width, height = xmax - xmin, ymax - ymin
-#             edgecolor = 'r' if label == 1 else 'g'
-#             rect = patches.Rectangle((xmin, ymin), width, height, linewidth=0.2, edgecolor=edgecolor, facecolor='none')
-#             ax.add_patch(rect)
-#             plt.text(xmin, ymin, 'Label: defected', fontdict={'fontsize': 3})
-#     plt.axis('off')
-#     st.pyplot(fig)
-
-
-
-
-#fyp_eval
-
-# def show_predict_page():
-#     st.title("Faster R-CNN Image Prediction")
-
-#     model_path = 'D:/Dashboard/rcnn_model2.pth'
-#     num_classes = 3
-#     model = load_model(model_path, num_classes)
-
-#     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-#     if uploaded_file is not None:
-#         print("uploaded")
-#         image = Image.open(uploaded_file).convert("RGB")
-#         image_tensor = transform_image(image)
-
-#         print("starting preds")
-#         outputs = predict(model, image_tensor)
-
-#         print("preds finished")
-#         boxes = outputs[0]['boxes'].cpu().numpy()
-#         labels = outputs[0]['labels'].cpu().numpy()
-#         scores = outputs[0]['scores'].cpu().numpy()
-
-#         display_image_with_boxes(image, boxes, labels, scores)
-#         st.image('filename.svg', caption='Resultant Image', use_column_width=True)
-
-#         print("image with boxes")
 
 def show_predict_page():
     st.title("Faster R-CNN Image Prediction")
 
-    model_path = 'D:/Dashboard/rcnn_model2.pth'
+    model_path = 'D:/Dashboard/rcnn_model2.pth'   #change the path accordingly with the path of the model
     num_classes = 3
     model = load_model(model_path, num_classes)
 
-    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"], key="Prediction")
     if uploaded_file is not None:
         print("uploaded")
         image = Image.open(uploaded_file).convert("RGB")

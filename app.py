@@ -14,9 +14,10 @@
 import streamlit as st
 from prediction_page import show_predict_page
 from diameter_page import show_diameter_page
-
 # Set the layout to wide
 st.set_page_config(layout="wide")
+
+
 
 # Sidebar for page navigation with radio buttons
 page = st.sidebar.radio("Choose a page", ["Defect Detection", "Diameter Measurement"])
