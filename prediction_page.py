@@ -69,6 +69,12 @@ def display_image_with_boxes(image, boxes, labels, scores, score_threshold=0.5):
     random_filename = generate_random_filename()
     plt.savefig(random_filename)
     plt.show()
+
+
+    #adding new line
+    return random_filename
+
+
 # def display_image_with_boxes(image, boxes, labels, scores, score_threshold=0.5):
 #     img_width, img_height = image.size
 
@@ -138,8 +144,12 @@ def show_predict_page():
         labels = outputs[0]['labels'].cpu().numpy()
         scores = outputs[0]['scores'].cpu().numpy()
 
-        display_image_with_boxes(image, boxes, labels, scores)
+        #display_image_with_boxes(image, boxes, labels, scores)
         #st.image('filename.svg', caption='Resultant Image', use_column_width=True)
-        st.image('filename.jpg', caption='Resultant Image', use_column_width=True)
+        #st.image('filename.jpg', caption='Resultant Image', use_column_width=True)
+        random_filename = display_image_with_boxes(image, boxes, labels, scores)
+
+        st.image(random_filename, caption='Resultant Image', use_column_width=True)
+
 
         print("image with boxes")
